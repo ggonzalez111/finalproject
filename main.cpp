@@ -109,6 +109,24 @@ public:
         }
     }
 
+    void mySwap ( int a, int b, int c, int d) //CBR because modifying the value of the variable
+    {
+        char temp = board[a][b];
+        //cout << temp;
+       // cout << board[a][b];
+       // cout << board[1][0];
+        board[a][b] = board[c][d];
+       // cout << board[a][b] << temp <<"test" << endl;//the board we want to operate on is inside board object
+        board[c][d] = temp;
+
+
+
+
+
+    }
+
+
+
     /*void printEmptyBoard()
     {
         cout << "   0   1   2   3   4   5  " << endl;
@@ -128,14 +146,12 @@ private:
     char board[6][6];
     char emptyBoard[6][6];
 
-    //make a constant 2d array with the colored squares and check when a piece lands in that squares
-    //if it is in a colored square and then trigger the special output
-    //use if statement: if there's no character on that square, check if its a special square
-    //and output symbol, otherwise output empty square
-    //if the square is empty and its a special square output the special character otherwise
-    //output the usual empty square
 
 };
+
+
+
+
 
 int main()
 {
@@ -146,8 +162,24 @@ int main()
     board.initializeEmptyBoard();
     board.printBoard();
    // board.printEmptyBoard();
-    cout << "The x values for the columns are listed across the top of the board from 0-5 and the y values for the rows are listed on the left side from 0-5.";
-    cout << "Enter the coordinates of the square with the piece you want to move: 'yx' :";
+   int a, b, c, d;
+    cout << "The x values for the columns are listed across the top of the board from 0-5 " << endl<<" and the y values for the rows are listed on the left side from 0-5.";
+    cout << endl << "Enter the coordinates of the square with the piece you want to move: 'yx' :";
+    cin >> a;
+    cin >> b;
+    cout << endl << "Enter the coordinates of the square to which you want to move the piece: 'yx' :";
+    cin >> c;
+    cin >> d;
+    board.mySwap(a, b, c, d);
 
+    board.printBoard();
+//actual board is a member of the board object
+//create a function that will let you modify the board class, this should be a member of the board class to
+//modify the board array
+
+//possible to create a function to extract things from the board class
+
+//search object oriented programming in c++ this will have the basics of when you design a class
+// encapsulation, inheritance, and polymorphism ?!
 
 }
