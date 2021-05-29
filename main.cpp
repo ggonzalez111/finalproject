@@ -5,6 +5,9 @@ using namespace std;
 class board
 {
 public:
+
+    bool finished = false;
+
     void initializeBoard()
     {
         board[0][0] = 'O', //PINK PLAYER IS UPPERCASE
@@ -109,24 +112,58 @@ public:
         }
     }
 
-    void mySwap ( int a, int b, int c, int d) //CBR because modifying the value of the variable
+
+    //PRE CONDITION: takes the square values of where to and what user wants to move checks if the piece moves are legal
+    bool validator (int a,  int b, int c, int d) //should this be bool or void?
     {
-        char temp = board[a][b];
-        //cout << temp;
-       // cout << board[a][b];
-       // cout << board[1][0];
-        board[a][b] = board[c][d];
-       // cout << board[a][b] << temp <<"test" << endl;//the board we want to operate on is inside board object
-        board[c][d] = temp;
+        // if it's player 1's turn and they DIDN'T choose one of their pieces (VRO), exit
+        if( whoseTurn() == 0 && !( board[a][b] == 'V' || board[a][b] == 'R' || board[a][b] == 'O') ) {
+            return false;
+        }else if ( whoseTurn() == 1 && !(board[a][b] == 'v' || board[a][b] == 'r' || board[a][b] == 'o')) {
+            // if it's player 2's turn and they DIDN'T choose one of their pieces (vro), exit
+            return false;
+        }
 
-
-
-
+        if (board[c][d] == ' ') { //checks empty space
+            if (toupper( board[a][b] ) == 'V') {
+                if (a == c) { //checks that the move is in the same row
+                    if (((b + 1) == d) || ((b - 1 == d))) { //checks that the move is only moving one square
+                        return true;
+                    }
+                }
+            } else if ( toupper( board[a][b] ) == 'R' || toupper( board[a][b] ) == 'O') { //should this be else or something different?
+                if (b == d) {//checks that the moves are in the same column
+                    if (((a + 1) == c) || ((a - 1)) == c) {
+                        return true;
+                    }
+                }
+            }
+        }
+        cout << "Move is not valid, please try again. " << endl;
+        return false;
 
     }
 
 
+    //PRE CONDITION: takes inputs
+    void mySwap ( int a, int b, int c, int d)
+    {
+        char temp = board[a][b];
+        board[a][b] = board[c][d];
+        board[c][d] = temp;
+    }
+    //POST CONDITION: swaps values of squares
 
+    void nextTurn (){
+        turn++; //keeping track turn based on even or odd
+        if (turn > 3) {
+            finished = true;
+        }
+    }
+
+    int whoseTurn(){
+        return turn % 2; //returns 1 or 0 based on whose turn it is
+    }
     /*void printEmptyBoard()
     {
         cout << "   0   1   2   3   4   5  " << endl;
@@ -146,6 +183,7 @@ private:
     char board[6][6];
     char emptyBoard[6][6];
 
+    int turn = 0;
 
 };
 
@@ -160,24 +198,34 @@ int main()
     class board emptyboard; //why do I have to add class here and not the one above???^
     board.initializeBoard();
     board.initializeEmptyBoard();
-    board.printBoard();
-   // board.printEmptyBoard();
-   int a, b, c, d;
-    cout << "The x values for the columns are listed across the top of the board from 0-5 " << endl<<" and the y values for the rows are listed on the left side from 0-5.";
-    cout << endl << "Enter the coordinates of the square with the piece you want to move: 'yx' :";
-    cin >> a;
-    cin >> b;
-    cout << endl << "Enter the coordinates of the square to which you want to move the piece: 'yx' :";
-    cin >> c;
-    cin >> d;
-    board.mySwap(a, b, c, d);
+    int startY, startX, endY, endX;
+    while(board.finished == false){
+        board.printBoard();
+        cout << endl;
+        if(board.whoseTurn() == 0) {
+            cout << "Player one: ";
+        } else {
+            cout << "Player two: ";
+        }
+        cout << "Enter the coordinates of the square with the piece you want to move: 'yx' :";
+        cin >> startY;
+        cin >> startX;
+        cout << endl << "Enter the coordinates of the square to which you want to move the piece: 'yx' :";
+        cin >> endY;
+        cin >> endX;
+        if(board.validator(startY, startX, endY, endX)) { //checks if the move is valid for player 1
+            board.mySwap(startY, startX, endY, endX); //enacts the move
+            board.nextTurn(); //can go in myswap!
+        }
+        else {
+            cout << "Invalid move! Try again. " << endl;
+        }
+    }
 
-    board.printBoard();
-//actual board is a member of the board object
-//create a function that will let you modify the board class, this should be a member of the board class to
-//modify the board array
 
-//possible to create a function to extract things from the board class
+
+
+
 
 //search object oriented programming in c++ this will have the basics of when you design a class
 // encapsulation, inheritance, and polymorphism ?!
