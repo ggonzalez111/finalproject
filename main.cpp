@@ -112,28 +112,78 @@ public:
         }
     }
 
+    void mySwap ( int startY, int startX, int endY, int endX)
+    {
+        char temp = board[startY][startX];
+        board[startY][startX] = board[endY][endX];
+        board[endY][endX] = temp;
+    }
+
+    void pieceEat ( int startY, int startX, int endY, int endX)
+    {
+        board[endY][endX] = board[startY][startX]; //assigns second square to first square's piece value
+        board[startY][startX] = ' '; //erases first square
+    }
 
     //PRE CONDITION: takes the square values of where to and what user wants to move checks if the piece moves are legal
-    bool validator (int a,  int b, int c, int d) //should this be bool or void?
+    bool validator (int startY,  int startX, int endY, int endX) //should this be bool or void?
     {
         // if it's player 1's turn and they DIDN'T choose one of their pieces (VRO), exit
-        if( whoseTurn() == 0 && !( board[a][b] == 'V' || board[a][b] == 'R' || board[a][b] == 'O') ) {
+        if( whoseTurn() == 0 && !( board[startY][startX] == 'V' || board[startY][startX] == 'R' || board[startY][startX] == 'O') ) {
             return false;
-        }else if ( whoseTurn() == 1 && !(board[a][b] == 'v' || board[a][b] == 'r' || board[a][b] == 'o')) {
+        }else if ( whoseTurn() == 1 && !(board[startY][startX] == 'v' || board[startY][startX] == 'r' || board[startY][startX] == 'o')) {
             // if it's player 2's turn and they DIDN'T choose one of their pieces (vro), exit
             return false;
         }
 
-        if (board[c][d] == ' ') { //checks empty space
-            if (toupper( board[a][b] ) == 'V') {
-                if (a == c) { //checks that the move is in the same row
-                    if (((b + 1) == d) || ((b - 1 == d))) { //checks that the move is only moving one square
+        if (( board[startY][startX] == 'V') && ( board[endY][endX] == 'v' )) {
+            pieceEat(startY, startX, endY, endX);
+            return true;
+        }
+
+        if (( board[startY][startX] == 'O' || board[startY][startX] == 'R') && ( board[endY][endX] == 'v' || board[endY][endX] == 'o')) {
+            pieceEat(startY, startX, endY, endX);
+            return true;
+        }
+
+        if (( board[startY][startX] == 'O' || board[startY][startX] == 'R') && (board[endY][endX] == 'r')) {
+            pieceEat(startY, startX, endY, endX);
+            cout << "Player one has won the game!";
+            finished = true;
+            return true;
+        }
+
+        if (( board[startY][startX] == 'v') && ( board[endY][endX] == 'V' )) {
+            pieceEat(startY, startX, endY, endX);
+            return true;
+        }
+
+        if (( board[startY][startX] == 'o' || board[startY][startX] == 'r') && ( board[endY][endX] == 'V' || board[endY][endX] == 'O')) {
+            pieceEat(startY, startX, endY, endX);
+            return true;
+        }
+
+        if (( board[startY][startX] == 'o' || board[startY][startX] == 'r') && (board[endY][endX] == 'R')) {
+            pieceEat(startY, startX, endY, endX);
+            cout << "Player two has won the game!";
+            finished = true;
+            return true;
+        }
+
+
+        if (board[endY][endX] == ' ') { //checks empty space
+            if (toupper( board[startY][startX] ) == 'V') {
+                if (startY == endY) { //checks that the move is in the same row
+                    if (((startX + 1) == endX) || ((startX - 1 == endX))) { //checks that the move is only moving one square
+                        mySwap(startY, startX, endY, endX);
                         return true;
+
                     }
                 }
-            } else if ( toupper( board[a][b] ) == 'R' || toupper( board[a][b] ) == 'O') { //should this be else or something different?
-                if (b == d) {//checks that the moves are in the same column
-                    if (((a + 1) == c) || ((a - 1)) == c) {
+            } else if ( toupper( board[startY][startX] ) == 'R' || toupper( board[startY][startX] ) == 'O') { //should this be else or something different?
+                if (startX == endX) {//checks that the moves are in the same column
+                    if (((startY + 1) == endY) || ((startY - 1)) == endY) {
+                        mySwap(startY, startX, endY, endX);
                         return true;
                     }
                 }
@@ -144,19 +194,9 @@ public:
 
     }
 
-
-    //PRE CONDITION: takes inputs
-    void mySwap ( int a, int b, int c, int d)
-    {
-        char temp = board[a][b];
-        board[a][b] = board[c][d];
-        board[c][d] = temp;
-    }
-    //POST CONDITION: swaps values of squares
-
     void nextTurn (){
         turn++; //keeping track turn based on even or odd
-        if (turn > 3) {
+        if (turn > 25) {
             finished = true;
         }
     }
@@ -187,10 +227,6 @@ private:
 
 };
 
-
-
-
-
 int main()
 {
 
@@ -198,9 +234,10 @@ int main()
     class board emptyboard; //why do I have to add class here and not the one above???^
     board.initializeBoard();
     board.initializeEmptyBoard();
+    board.printBoard();
     int startY, startX, endY, endX;
     while(board.finished == false){
-        board.printBoard();
+        //board.printBoard(); think this was in the wrong place?
         cout << endl;
         if(board.whoseTurn() == 0) {
             cout << "Player one: ";
@@ -214,8 +251,9 @@ int main()
         cin >> endY;
         cin >> endX;
         if(board.validator(startY, startX, endY, endX)) { //checks if the move is valid for player 1
-            board.mySwap(startY, startX, endY, endX); //enacts the move
+           // board.mySwap(startY, startX, endY, endX); //enacts the move
             board.nextTurn(); //can go in myswap!
+            board.printBoard(); //inserted print board here based on Josh's feedback
         }
         else {
             cout << "Invalid move! Try again. " << endl;
