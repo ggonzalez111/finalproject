@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+
 using namespace std;
 
 class board
@@ -125,6 +127,42 @@ public:
         board[startY][startX] = ' '; //erases first square
     }
 
+    bool specialStarCheck (int endY, int endX)
+    {
+        if ((emptyBoard[endY][endX]) == '*') {
+            char diceAnswer;
+            int diceRoll;
+            cout << "You have landed on a special square. ";
+            cout << "This dice roll will allow you to win another turn if you roll an even number. ";
+            cout << "Would you like to roll the dice? Answer y or n.";
+            cin >> diceAnswer;
+
+            if (diceAnswer == 'y') {
+                cout << "The dice is being rolled. If the roll is an even number, you will get an extra concurrent turn."<< endl << endl;
+                diceRoll = rand() % 6 + 1;
+                cout << "Your dice roll was " << diceRoll << ". " << endl;
+
+                if (diceRoll % 2 == 1) {
+                    cout << "Your dice roll was odd so you don't get another turn. Try again next time." << endl;
+                    return false;
+                }
+                if (diceRoll % 2 == 0) {
+                    cout << "Nice job!" << endl << "You rolled an even number so you get another turn. " << endl;
+                    turn = turn - 1; //sets turn back so that player can go again
+                    return true;
+                }
+            }
+            if (diceAnswer == 'n') {
+                return false;
+            }
+
+
+        }
+        else {
+            return false;
+        }
+    }
+
     //PRE CONDITION: takes the square values of where to and what user wants to move checks if the piece moves are legal
     bool validator (int startY,  int startX, int endY, int endX) //should this be bool or void?
     {
@@ -235,6 +273,7 @@ int main()
     board.initializeBoard();
     board.initializeEmptyBoard();
     board.printBoard();
+    srand (time(NULL));
     int startY, startX, endY, endX;
     while(board.finished == false){
         //board.printBoard(); think this was in the wrong place?
@@ -251,19 +290,14 @@ int main()
         cin >> endY;
         cin >> endX;
         if(board.validator(startY, startX, endY, endX)) { //checks if the move is valid for player 1
-           // board.mySwap(startY, startX, endY, endX); //enacts the move
-            board.nextTurn(); //can go in myswap!
+            board.nextTurn();
             board.printBoard(); //inserted print board here based on Josh's feedback
+            board.specialStarCheck (endY, endX);
         }
         else {
             cout << "Invalid move! Try again. " << endl;
         }
     }
-
-
-
-
-
 
 //search object oriented programming in c++ this will have the basics of when you design a class
 // encapsulation, inheritance, and polymorphism ?!
