@@ -1,6 +1,14 @@
 #include <iostream>
 #include <string>
 #include <cstdlib>
+#include <fstream>
+#include <vector> // For std::vector
+//#include<iomanip>
+//using std::cerr;
+//using std::cout;
+//using std::endl;
+//using std::ifstream;
+//using std::istream;
 
 using namespace std;
 
@@ -127,6 +135,55 @@ public:
         board[startY][startX] = ' '; //erases first square
     }
 
+    bool specialHashtagCheck (int endY, int endX, ifstream& inputFile, ifstream& inputFileAnswer) {
+        if ((emptyBoard[endY][endX]) == '#') {
+            string theQuestion;
+            string correctAnswer;
+            int i=0;
+            int playerAnswer;
+            char mathAnswer;
+            char startGame;
+
+            cout<< "you have landed on a special square." << endl;
+            cout << "If you answer this simple problem in less than 5 seconds you will get an additional turn." << endl;
+            cout << "Would you like to try? Answer y or n. " << endl;
+            cin >> mathAnswer;
+            if (mathAnswer == 'n') {  //do the case sensitive upper thing
+               cout << "You entered no, so the game will continue.";
+               return false;
+            }
+            if (mathAnswer == 'y') { //do the case sensitive upper thing
+                cout << "Get ready to play. “As soon as the question appears, you will have 5 seconds to answer correctly.";
+                cout << '\n' << "Press a key to continue...";
+                cin >> startGame;
+                getline(inputFile, theQuestion); //have to get the sentence from the file and assign it to the question
+                while(i<questionIndex){
+                    i++;
+                    getline(inputFile, theQuestion);
+                    questionIndex++;
+                }
+                // https://stackoverflow.com/questions/7868936/read-file-line-by-line-using-ifstream-in-c
+                cout << theQuestion << endl;
+                cin >> playerAnswer;
+                inputFileAnswer >> correctAnswer;
+                int stringInteger = stoi(correctAnswer);
+                if (playerAnswer == stringInteger) {
+                    cout << endl << "Great job, you get another turn! " << endl;
+                    turn = turn -1;
+                }
+                if (!inputFileAnswer) { // file couldn't be opened
+                    cerr << "Error: answer file could not be opened" << endl;
+                    exit(1);
+                }
+                if (!inputFile) { // file couldn't be opened
+                    cerr << "Error: question file could not be opened" << endl;
+                    exit(1);
+                }
+            }
+        }
+        return false;
+    }
+
     bool specialStarCheck (int endY, int endX)
     {
         if ((emptyBoard[endY][endX]) == '*') {
@@ -155,8 +212,6 @@ public:
             if (diceAnswer == 'n') {
                 return false;
             }
-
-
         }
         else {
             return false;
@@ -207,7 +262,6 @@ public:
             finished = true;
             return true;
         }
-
 
         if (board[endY][endX] == ' ') { //checks empty space
             if (toupper( board[startY][startX] ) == 'V') {
@@ -260,23 +314,23 @@ public:
 private:
     char board[6][6];
     char emptyBoard[6][6];
-
     int turn = 0;
+    int questionIndex = 0;
 
 };
 
 int main()
 {
-
+    ifstream inputFile( "/Users/giselle/CLionProjects/finalproject/specialsquare.txt"); //pwd in terminal
+    ifstream inputFileAnswer("/Users/giselle/CLionProjects/finalproject/problemanswers.txt");
     board board;
-    class board emptyboard; //why do I have to add class here and not the one above???^
     board.initializeBoard();
     board.initializeEmptyBoard();
     board.printBoard();
     srand (time(NULL));
+
     int startY, startX, endY, endX;
     while(board.finished == false){
-        //board.printBoard(); think this was in the wrong place?
         cout << endl;
         if(board.whoseTurn() == 0) {
             cout << "Player one: ";
@@ -293,6 +347,7 @@ int main()
             board.nextTurn();
             board.printBoard(); //inserted print board here based on Josh's feedback
             board.specialStarCheck (endY, endX);
+            board.specialHashtagCheck (endY, endX, inputFile, inputFileAnswer);
         }
         else {
             cout << "Invalid move! Try again. " << endl;
