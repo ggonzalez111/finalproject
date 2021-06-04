@@ -2,13 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <fstream>
-#include <vector> // For std::vector
-//#include<iomanip>
-//using std::cerr;
-//using std::cout;
-//using std::endl;
-//using std::ifstream;
-//using std::istream;
+#include <chrono>
 
 using namespace std;
 
@@ -20,7 +14,7 @@ public:
 
     void initializeBoard()
     {
-        board[0][0] = 'O', //PINK PLAYER IS UPPERCASE
+        board[0][0] = 'O', //PLAYER ONE IS UPPERCASE
         board[0][1] = 'O',
         board[0][2] = 'R',
         board[0][3] = 'O',
@@ -31,7 +25,7 @@ public:
         board[1][2] = ' ',
         board[1][3] = ' ',
         board[1][4] = ' ',
-        board[1][5] = 'v', //GREEN PLAYER IS LOWERCASE
+        board[1][5] = 'v', // PLAYER TWO IS LOWERCASE
         board[2][0] = 'V',
         board[2][1] = ' ',
         board[2][2] = ' ',
@@ -56,9 +50,6 @@ public:
         board[5][3] = 'r',
         board[5][4] = 'o',
         board[5][5] = 'o';
-
-
-
     }
 
     void initializeEmptyBoard()
@@ -99,9 +90,6 @@ public:
         emptyBoard[3][5] = ' ',
         emptyBoard[4][5] = '*',
         emptyBoard[5][5] = ' ';
-
-
-
     }
 
     void printBoard()
@@ -149,8 +137,8 @@ public:
             cout << "Would you like to try? Answer y or n. " << endl;
             cin >> mathAnswer;
             if (mathAnswer == 'n') {  //do the case sensitive upper thing
-               cout << "You entered no, so the game will continue.";
-               return false;
+                cout << "You entered no, so the game will continue.";
+                return false;
             }
             if (mathAnswer == 'y') { //do the case sensitive upper thing
                 cout << "Get ready to play. “As soon as the question appears, you will have 5 seconds to answer correctly.";
@@ -162,7 +150,6 @@ public:
                     getline(inputFile, theQuestion);
                     questionIndex++;
                 }
-                // https://stackoverflow.com/questions/7868936/read-file-line-by-line-using-ifstream-in-c
                 cout << theQuestion << endl;
                 cin >> playerAnswer;
                 inputFileAnswer >> correctAnswer;
@@ -170,6 +157,12 @@ public:
                 if (playerAnswer == stringInteger) {
                     cout << endl << "Great job, you get another turn! " << endl;
                     turn = turn -1;
+                    return true;
+                }
+                if (stringInteger != playerAnswer) {
+                    cout << endl << "Sorry, that's not the right answer" << endl;
+                    cout << "You don't get another turn." << endl;
+                    return false;
                 }
                 if (!inputFileAnswer) { // file couldn't be opened
                     cerr << "Error: answer file could not be opened" << endl;
@@ -296,39 +289,43 @@ public:
     int whoseTurn(){
         return turn % 2; //returns 1 or 0 based on whose turn it is
     }
-    /*void printEmptyBoard()
-    {
-        cout << "   0   1   2   3   4   5  " << endl;
-        for (int x=0; x<6; x++) //going down values
-        {
-            cout << x << " |";
-            for (int y=0; y<6; y++) //going horizontal values
-            {
-                cout << board[x][y] << " | ";
-            }
-            cout << endl;
-
-        }
-    }*/
 
 private:
     char board[6][6];
     char emptyBoard[6][6];
     int turn = 0;
     int questionIndex = 0;
-
 };
 
 int main()
 {
-    ifstream inputFile( "/Users/giselle/CLionProjects/finalproject/specialsquare.txt"); //pwd in terminal
-    ifstream inputFileAnswer("/Users/giselle/CLionProjects/finalproject/problemanswers.txt");
+    ifstream inputFile( "/Users/giselle/CLionProjects/finalproject/specialsquare.txt"); //pwd in terminal for path
+    ifstream inputFileAnswer("/Users/giselle/CLionProjects/finalproject/problemanswers.txt"); //pwd in terminal for path
     board board;
     board.initializeBoard();
     board.initializeEmptyBoard();
-    board.printBoard();
-    srand (time(NULL));
+    srand (time(NULL)); //seeding the random number generator
 
+    cout << "Hello! Welcome to BEEP BOOP!" << endl << endl;
+   // cout << "______**" << endl;
+    //cout << "____*                     _____          ______  _______   _____          ____              ___            ___" << endl;
+    //cout << "__*___****            |         \\      |       |          |     \\        |      \\         /     \\        /     \\" <<endl;
+
+    cout <<"______**"<< endl;
+    cout <<"____*                  ________     ______   _______       _____             _______           _____             ___          ______        "<< endl;
+    cout <<"__*___****            |         \\  |         |           |       \\          |        \\       /       \\        /       \\      |      \\" << endl;
+    cout <<"_*__*______*          |          | |         |           |       |          |          |    /         \\     /          \\     |       |" << endl;
+    cout <<"*__*___*_*__*         |         /  |         |           |_____ /           |         /    |     |     |   |     |     |     |      /" << endl;
+    cout <<"*___*__*__*__*        |-------\\    |____     |_____      |                  |-------\\      |     |     |   |     |     |     |-----" << endl;
+    cout <<"_*___*___*___*        |         \\  |         |           |                  |         \\    |     |     |   |     |     |     |" << endl;
+    cout <<"__*____*____*         |          | |         |           |                  |           |  |     |     |   |     |     |     |" << endl;
+    cout <<"___*_______*          |         /  |         |           |                  |          /    \\          /    \\         /      |" << endl;
+    cout <<"_____*____*           |_______/    |______   |______     |                  |________/       \\________/       \\______/       |" << endl;
+    cout <<"_______**" << endl;
+    cout << endl << endl;
+    cout << "               *~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~" << endl<<endl<<endl;
+
+            board.printBoard();
     int startY, startX, endY, endX;
     while(board.finished == false){
         cout << endl;
@@ -350,11 +347,9 @@ int main()
             board.specialHashtagCheck (endY, endX, inputFile, inputFileAnswer);
         }
         else {
+            board.printBoard();
             cout << "Invalid move! Try again. " << endl;
         }
     }
-
-//search object oriented programming in c++ this will have the basics of when you design a class
-// encapsulation, inheritance, and polymorphism ?!
 
 }
