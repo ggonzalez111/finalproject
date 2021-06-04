@@ -91,6 +91,96 @@ public:
         emptyBoard[4][5] = '*',
         emptyBoard[5][5] = ' ';
     }
+    bool secretBunny(int endY, int endX) {
+        char choice;
+        int bigCounter = 0;
+        if (endY == 2 && endX == 3)
+        do {
+
+            char magicLetter;
+            int total(0);
+            int counter(0);
+
+            int numEntries;
+            string sentence = "";
+            string outputSentence;
+            double bunnyNumber;
+
+            cout << "Congratulations! you have landed on a the secret bunny's lair square! There is a wizard bunny who lives in this " << endl;
+            cout << "square and he will perform secret calculations. He has a secret algorithm where certain numbers are associated with certain numbers." << endl;
+            cout << "enter however many letters you want to give to the bunny so he  can run his magical calculations!" << endl << endl;
+            cout << "How many magic letters (between A and H in the alphabet) would you like to enter? ";
+            cin >> numEntries;
+            cout << endl;
+            newLine();
+
+            do {
+                cout << "Enter magic letter " << counter + 1 << ": ";
+                cin >> magicLetter;
+                newLine();
+
+                if (magicLetter == 'a' || magicLetter == 'A') {
+                    total += 7;
+                } else if (magicLetter == 'b' || magicLetter == 'B') {
+                    total += 5;
+                } else if (magicLetter == 'c' || magicLetter == 'C') {
+                    total += 2;
+                } else if (magicLetter == 'd' || magicLetter == 'D') {
+                    total += 9;
+                } else if (magicLetter == 'e' || magicLetter == 'E') {
+                    total += 2;
+                } else if (magicLetter == 'f' || magicLetter == 'F') {
+                    total += 9;
+                } else if (magicLetter == 'g' || magicLetter == 'G') {
+                    total += 4;
+                } else {
+                    cout << "Invalid input!" << endl;
+                    counter--;
+                }
+                counter++;
+
+            } while (counter < numEntries);
+            bunnyNumber = total * 1.0 / numEntries;
+            sentence = "The magic bunny has decided that your magic calculation is ";
+            cout << sentence << bunnyNumber << ". " << endl << endl;
+
+            if (bunnyNumber >= 4.0) {
+                cout << "Your bunny calculation is pretty high!" << endl;
+                cout << "Congratulations, you have won an extra turn! Thanks bunny!" << endl;
+                turn = turn -1;
+                return true;
+            }
+
+            if (bunnyNumber >= 2.0 && bunnyNumber < 4.0) {
+                cout << "Your bunny calculation is somewhere in the middle, it's not as high as it \n";
+                cout << "could be, so you do not get another turn!" << endl;
+                return false;
+            }
+
+            if (bunnyNumber < 2.0) {
+                cout << "Your bunny calculation is so low. Sorry, no extra turns. \n";
+                return false;
+            }
+            cout << "Again? y or no" << endl;
+            cin >> choice;
+            newLine();
+            cout << endl;
+            bigCounter++;
+
+        }
+        while (choice == 'y' && bigCounter < 3 || choice == 'Y' && bigCounter < 3);
+    }
+        //PRECONDITION: USER ENTERS EXCESS INPUT
+    void newLine()
+    {
+        char c;
+        do
+        {
+            cin.get(c);
+        }
+        while (c != '\n');
+    }
+    //POST CONDITION: EXCESS INPUT IS DISCARDED FROM THE STREAM
 
     void printBoard()
     {
@@ -136,6 +226,7 @@ public:
             cout << "If you answer this simple problem in less than 5 seconds you will get an additional turn." << endl;
             cout << "Would you like to try? Answer y or n. " << endl;
             cin >> mathAnswer;
+            newLine();
             if (mathAnswer == 'n') {  //do the case sensitive upper thing
                 cout << "You entered no, so the game will continue.";
                 return false;
@@ -144,6 +235,7 @@ public:
                 cout << "Get ready to play. “As soon as the question appears, you will have 5 seconds to answer correctly.";
                 cout << '\n' << "Press a key to continue...";
                 cin >> startGame;
+                newLine();
                 getline(inputFile, theQuestion); //have to get the sentence from the file and assign it to the question
                 while(i<questionIndex){
                     i++;
@@ -160,16 +252,16 @@ public:
                     return true;
                 }
                 if (stringInteger != playerAnswer) {
-                    cout << endl << "Sorry, that's not the right answer" << endl;
+                    cout << endl << "Sorry, that's not the right answer." << endl;
                     cout << "You don't get another turn." << endl;
                     return false;
                 }
                 if (!inputFileAnswer) { // file couldn't be opened
-                    cerr << "Error: answer file could not be opened" << endl;
+                    cerr << "Error: answer file could not be opened." << endl;
                     exit(1);
                 }
                 if (!inputFile) { // file couldn't be opened
-                    cerr << "Error: question file could not be opened" << endl;
+                    cerr << "Error: question file could not be opened." << endl;
                     exit(1);
                 }
             }
@@ -186,7 +278,7 @@ public:
             cout << "This dice roll will allow you to win another turn if you roll an even number. ";
             cout << "Would you like to roll the dice? Answer y or n.";
             cin >> diceAnswer;
-
+            newLine();
             if (diceAnswer == 'y') {
                 cout << "The dice is being rolled. If the roll is an even number, you will get an extra concurrent turn."<< endl << endl;
                 diceRoll = rand() % 6 + 1;
@@ -274,9 +366,8 @@ public:
                 }
             }
         }
-        cout << "Move is not valid, please try again. " << endl;
+        cout << "that move is not valid. " << endl;
         return false;
-
     }
 
     void nextTurn (){
@@ -308,10 +399,6 @@ int main()
     srand (time(NULL)); //seeding the random number generator
 
     cout << "Hello! Welcome to BEEP BOOP!" << endl << endl;
-   // cout << "______**" << endl;
-    //cout << "____*                     _____          ______  _______   _____          ____              ___            ___" << endl;
-    //cout << "__*___****            |         \\      |       |          |     \\        |      \\         /     \\        /     \\" <<endl;
-
     cout <<"______**"<< endl;
     cout <<"____*                  ________     ______   _______       _____             _______           _____             ___          ______        "<< endl;
     cout <<"__*___****            |         \\  |         |           |       \\          |        \\       /       \\        /       \\      |      \\" << endl;
@@ -339,6 +426,7 @@ int main()
     cout << endl << endl << endl << endl;
     cout << "Press s to continue!";
     cin >> directionsRead;
+    board.newLine();
     cout <<  endl << endl << endl;
     board.printBoard();
     int startY, startX, endY, endX;
@@ -352,23 +440,23 @@ int main()
         cout << "Enter the coordinates of the square with the piece you want to move: 'yx' :";
         cin >> startY;
         cin >> startX;
+        board.newLine();
         cout << endl << "Enter the coordinates of the square to which you want to move the piece: 'yx' :";
         cin >> endY;
         cin >> endX;
+        board.newLine();
         if(board.validator(startY, startX, endY, endX)) { //checks if the move is valid for player 1
             board.nextTurn();
             board.printBoard(); //inserted print board here based on Josh's feedback
             board.specialStarCheck (endY, endX);
             board.specialHashtagCheck (endY, endX, inputFile, inputFileAnswer);
+            board.secretBunny(endY, endX);
         }
         else {
             board.printBoard();
             cout << "Invalid move! Try again. " << endl;
         }
     }
-
-}
-
 //FXNS: extra input throw out
 //win if v's get across the board three times
 //timer
@@ -376,3 +464,5 @@ int main()
 //lose screen
 //colors of pieces
 //secret special squares
+}
+
