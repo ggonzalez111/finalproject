@@ -302,6 +302,7 @@ int main()
     ifstream inputFile( "/Users/giselle/CLionProjects/finalproject/specialsquare.txt"); //pwd in terminal for path
     ifstream inputFileAnswer("/Users/giselle/CLionProjects/finalproject/problemanswers.txt"); //pwd in terminal for path
     board board;
+    char directionsRead;
     board.initializeBoard();
     board.initializeEmptyBoard();
     srand (time(NULL)); //seeding the random number generator
@@ -325,7 +326,21 @@ int main()
     cout << endl << endl;
     cout << "               *~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~" << endl<<endl<<endl;
 
-            board.printBoard();
+    cout<< "Welcome to the game BEEP BOOP! this is a game that's set up on a checkboard-type board. The game consists of two players." << endl;
+    cout << "The x values are labeled across the top of the board and the y values of the board are labeled to the left going down the side." << endl;
+    cout << "Together, the y and x values create a unique label for each square. You will type in your values ' y space x enter' into the keyboard." << endl;
+    cout << "The game will alternate between the two players unless someone lands on a special character, a * or a # which are labeled the board squares." << endl;
+    cout << "These squares give you a chance to win another turn. Player one is the capital figures: V, R, and O. Player two is the lower case figures: v, r, and o. " << endl;
+    cout << "The V's can only move left to right, either way, one square at a time. They can eat only other V characters, not the R's or the O's. " << endl;
+    cout << "The R's and O's only move vertically but they can eat any piece. The only difference is that the R's are the kings on the board. " << endl;
+    cout << "If you eat an opponent's R piece, then you automatically win the game and it's over! The only other way to win the game " << endl;
+    cout << "is to take a V piece across the board and back without getting eaten. There are also special surprise squares that" << endl;
+    cout << "are unlabeled and will take you to a mini challenge! Good luck! " << endl;
+    cout << endl << endl << endl << endl;
+    cout << "Press s to continue!";
+    cin >> directionsRead;
+    cout <<  endl << endl << endl;
+    board.printBoard();
     int startY, startX, endY, endX;
     while(board.finished == false){
         cout << endl;
@@ -353,3 +368,11 @@ int main()
     }
 
 }
+
+//FXNS: extra input throw out
+//win if v's get across the board three times
+//timer
+//win screen
+//lose screen
+//colors of pieces
+//secret special squares
