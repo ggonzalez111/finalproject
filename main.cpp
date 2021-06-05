@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
-#include <cstdlib>
 #include <fstream>
 #include <chrono>
+#include <ctime>
+#include <cstdlib>
 
 using namespace std;
 
@@ -91,6 +92,113 @@ public:
         emptyBoard[4][5] = '*',
         emptyBoard[5][5] = ' ';
     }
+
+    void secretAdviceGenerator (int endY, int endX) {
+        if (endY == 3 && endX == 1) {
+            int userGuess;
+            cout << "Welcome to the princess's secret square, here she will give you some advice or extra turns if you can " << endl;
+            cout << "correctly guess the number of mice living under her cottage (There's somewhere between 1 and 15.) You will have one guess. go ahead:" << endl;
+            int princessNumber = rand() % 15 + 0;
+            cin >> userGuess;
+            if (princessNumber == userGuess) {
+                switch (userGuess) {
+                    case 1:
+                        cout << "Great job! You guess correctly! You won't get another turn but you will get a piece of trivia."<< endl;
+                        cout << "The French version of Rapunzel doesn't have a happy ending. Instead of finding a happily ever after," << endl;
+                        cout << "Rapunzel turns into a frog and the prince gets cursed with a pig's snout!" << endl;
+                        break;
+                    case 2:
+                        cout << "The very first tale of Cinderella was written in China around 850 AD - and over 700 versions of " << endl;
+                        cout << "the story have been recorded from around the world. In the first version of the story, " << endl;
+                        cout << "Cinderella's slipper is made of gold, not glass!" << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 3:
+                        cout << "In one of the earliest tellings of Goldilocks and the Three Bears, Goldilocks isn't " << endl;
+                        cout << "a cute little girl. Instead, she's a foul-mouthed old woman!" << endl;
+                        break;
+                    case 4:
+                        cout << "Did you know there is a nickname for a planet called the \"Goldilocks planet\"? This planet " << endl;
+                        cout << "is in another solar system and may very similar to Earth. This is why it's nicknamed Goldilocks - " << endl;
+                        cout << "it's neither too hot or too cold. It's just right!" << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 5:
+                        cout << "Older versions of Jack and the Beanstalk are called Jack and the Giant Killer because the story " << endl;
+                        cout << "originally didn't have a beanstalk at all! Isn't it hard to imagine the story without it?" << endl;
+                        break;
+                    case 6:
+                        cout << "Some scholars believe the first telling of Little Red Riding Hood actually originated in East Asia, " << endl;
+                        cout << "and was called The Tiger Grandmother. " << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 7:
+                        cout << "Before deciding on the title Alice's Adventures in Wonderland, Lewis Carrol also considered " << endl;
+                        cout << "Alice's Hour in Elfland and Alice Among the Faeries." << endl;
+                        break;
+                    case 8:
+                        cout << "The name Maleficent comes from the latin word maleficenta which means evil-doing." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 9:
+                        cout << "The story Hansel and Gretel is actually mis-titled. The Grimm Brothers' Roland and May-Bird tells " << endl;
+                        cout << " the story as we know it today. In fact, the original Hansel and Gretel has a totally different plot where Hansel " << endl;
+                        cout << "turns into a deer and Gretel marries a prince!" << endl;
+                        break;
+                    case 10:
+                        cout << "It is hard to know the origin of fairy tales. There was a belief that the origin can be traced back around " << endl;
+                        cout << "6,000 years ago during the Bronze Age according to the researchers." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 11:
+                        cout << "  In the Brothers’ Grimm’s Snow White, the prince falls in love with Snow White after seeing her already deceased in her coffin. " << endl;
+                        cout << "The dwarves give him the coffin after he begs for it, and as his servants carry it back to the palace they trip on a tree stump and"<< endl;
+                        cout << "the apple comes out of Snow White’s throat, rendering her alive again." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 12:
+                        cout << "The Bluebeard tales were commonly known but no longer circulate in pop culture, as they were deemed too disturbing for children. "<< endl;
+                        cout<< "In the stories, a concealed murderer “Bluebeard” would search for a wife, then put her through a test of trust, where when broken she "<< endl;
+                        cout << "would either be killed, chopped into tiny pieces or eaten, along with all the other women he tried his luck on." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 13:
+                        cout << "The Russian version of Cinderella is called Marfusha. Marfusha (aka: Cinderella) is left out in the cold snow to die at one " << endl;
+                        cout << "point suffering by the hands of her very cruel step-sisters." << endl;
+                        //this is directly quoted from https://www.quora.com/What-are-some-little-known-facts-about-popular-fairy-tales-and-folk-stories
+                        break;
+                    case 14:
+                        cout << "The novel (Journey to the West) is a fictionalised account of the legendary pilgrimage to India of the Buddhist monk Xuanzang, " << endl;
+                        cout << "and loosely based its source from the historic text Great Tang Records on the Western Regions and traditional folk tales. " << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        //this is directly quoted from: https://www.quora.com/What-are-some-famous-Chinese-fairy-tales
+                        turn = turn - 1;
+                        break;
+                    case 15:
+                        cout << "Here's a beautiful quotation from JRR Tolkien: " << endl << endl;
+                        cout << "Fantasy is a natural human activity. It certainly does not destroy or even insult Reason; and it does not either blunt" << endl;
+                        cout << "the appetite for, nor obscure the perception of, scientific verity. On the contrary. The keener and the clearer is the reason," << endl;
+                        cout << "the better fantasy will it make." << endl;
+                        break;
+                }
+            }
+                //#11 and #12 directly quoted from this site //directly quoted from this source: https://factsnfun.com/culture/10-interesting-facts-about-fairy-tales/
+                //trivia quoted directly from the website: http://dramakidsalbany.weebly.com/parent-blog/fairy-tale-fun-facts
+            else {
+                cout << "Sorry, you guessed incorrectly! Good try! " << endl << endl;
+            }
+        }
+
+    }
+
+
     bool secretBunny(int endY, int endX) {
         char choice;
         int bigCounter = 0;
@@ -170,7 +278,7 @@ public:
         }
         while (choice == 'y' && bigCounter < 3 || choice == 'Y' && bigCounter < 3);
     }
-        //PRECONDITION: USER ENTERS EXCESS INPUT
+    //PRECONDITION: USER ENTERS EXCESS INPUT
     void newLine()
     {
         char c;
@@ -328,7 +436,9 @@ public:
             pieceEat(startY, startX, endY, endX);
             cout << "Player one has won the game!";
             finished = true;
-            return true;
+            return(0);
+            return false;
+
         }
 
         if (( board[startY][startX] == 'v') && ( board[endY][endX] == 'V' )) {
@@ -345,7 +455,8 @@ public:
             pieceEat(startY, startX, endY, endX);
             cout << "Player two has won the game!";
             finished = true;
-            return true;
+            return (0);
+            return false;
         }
 
         if (board[endY][endX] == ' ') { //checks empty space
@@ -388,51 +499,88 @@ private:
     int questionIndex = 0;
 };
 
-int main()
-{
-    ifstream inputFile( "/Users/giselle/CLionProjects/finalproject/specialsquare.txt"); //pwd in terminal for path
+int main() {
+    ifstream inputFile("/Users/giselle/CLionProjects/finalproject/specialsquare.txt"); //pwd in terminal for path
     ifstream inputFileAnswer("/Users/giselle/CLionProjects/finalproject/problemanswers.txt"); //pwd in terminal for path
     board board;
     char directionsRead;
     board.initializeBoard();
     board.initializeEmptyBoard();
-    srand (time(NULL)); //seeding the random number generator
+    srand(time(NULL)); //seeding the random number generator
 
     cout << "Hello! Welcome to BEEP BOOP!" << endl << endl;
-    cout <<"______**"<< endl;
-    cout <<"____*                  ________     ______   _______       _____             _______           _____             ___          ______        "<< endl;
-    cout <<"__*___****            |         \\  |         |           |       \\          |        \\       /       \\        /       \\      |      \\" << endl;
-    cout <<"_*__*______*          |          | |         |           |       |          |          |    /         \\     /          \\     |       |" << endl;
-    cout <<"*__*___*_*__*         |         /  |         |           |_____ /           |         /    |     |     |   |     |     |     |      /" << endl;
-    cout <<"*___*__*__*__*        |-------\\    |____     |_____      |                  |-------\\      |     |     |   |     |     |     |-----" << endl;
-    cout <<"_*___*___*___*        |         \\  |         |           |                  |         \\    |     |     |   |     |     |     |" << endl;
-    cout <<"__*____*____*         |          | |         |           |                  |           |  |     |     |   |     |     |     |" << endl;
-    cout <<"___*_______*          |         /  |         |           |                  |          /    \\          /    \\         /      |" << endl;
-    cout <<"_____*____*           |_______/    |______   |______     |                  |________/       \\________/       \\______/       |" << endl;
-    cout <<"_______**" << endl;
+    cout << "______**" << endl;
+    cout
+            << "____*                  ________     ______   _______       _____             _______           _____             ___          ______        "
+            << endl;
+    cout
+            << "__*___****            |         \\  |         |           |       \\          |        \\       /       \\        /       \\      |      \\"
+            << endl;
+    cout
+            << "_*__*______*          |          | |         |           |       |          |          |    /         \\     /          \\     |       |"
+            << endl;
+    cout
+            << "*__*___*_*__*         |         /  |         |           |_____ /           |         /    |     |     |   |     |     |     |      /"
+            << endl;
+    cout
+            << "*___*__*__*__*        |-------\\    |____     |_____      |                  |-------\\      |     |     |   |     |     |     |-----"
+            << endl;
+    cout
+            << "_*___*___*___*        |         \\  |         |           |                  |         \\    |     |     |   |     |     |     |"
+            << endl;
+    cout
+            << "__*____*____*         |          | |         |           |                  |           |  |     |     |   |     |     |     |"
+            << endl;
+    cout
+            << "___*_______*          |         /  |         |           |                  |          /    \\          /    \\         /      |"
+            << endl;
+    cout
+            << "_____*____*           |_______/    |______   |______     |                  |________/       \\________/       \\______/       |"
+            << endl;
+    cout << "_______**" << endl;
     cout << endl << endl;
-    cout << "               *~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~" << endl<<endl<<endl;
+    cout
+            << "               *~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
+            << endl << endl << endl;
 
-    cout<< "Welcome to the game BEEP BOOP! this is a game that's set up on a checkboard-type board. The game consists of two players." << endl;
-    cout << "The x values are labeled across the top of the board and the y values of the board are labeled to the left going down the side." << endl;
-    cout << "Together, the y and x values create a unique label for each square. You will type in your values ' y space x enter' into the keyboard." << endl;
-    cout << "The game will alternate between the two players unless someone lands on a special character, a * or a # which are labeled the board squares." << endl;
-    cout << "These squares give you a chance to win another turn. Player one is the capital figures: V, R, and O. Player two is the lower case figures: v, r, and o. " << endl;
-    cout << "The V's can only move left to right, either way, one square at a time. They can eat only other V characters, not the R's or the O's. " << endl;
-    cout << "The R's and O's only move vertically but they can eat any piece. The only difference is that the R's are the kings on the board. " << endl;
-    cout << "If you eat an opponent's R piece, then you automatically win the game and it's over! The only other way to win the game " << endl;
-    cout << "is to take a V piece across the board and back without getting eaten. There are also special surprise squares that" << endl;
+    cout
+            << "Welcome to the game BEEP BOOP! this is a game that's set up on a checkboard-type board. The game consists of two players."
+            << endl;
+    cout
+            << "The x values are labeled across the top of the board and the y values of the board are labeled to the left going down the side."
+            << endl;
+    cout
+            << "Together, the y and x values create a unique label for each square. You will type in your values ' y space x enter' into the keyboard."
+            << endl;
+    cout
+            << "The game will alternate between the two players unless someone lands on a special character, a * or a # which are labeled the board squares."
+            << endl;
+    cout
+            << "These squares give you a chance to win another turn. Player one is the capital figures: V, R, and O. Player two is the lower case figures: v, r, and o. "
+            << endl;
+    cout
+            << "The V's can only move left to right, either way, one square at a time. They can eat only other V characters, not the R's or the O's. "
+            << endl;
+    cout
+            << "The R's and O's only move vertically but they can eat any piece. The only difference is that the R's are the kings on the board. "
+            << endl;
+    cout
+            << "If you eat an opponent's R piece, then you automatically win the game and it's over! The only other way to win the game "
+            << endl;
+    cout
+            << "is to take a V piece across the board and back without getting eaten. There are also special surprise squares that"
+            << endl;
     cout << "are unlabeled and will take you to a mini challenge! Good luck! " << endl;
     cout << endl << endl << endl << endl;
     cout << "Press s to continue!";
     cin >> directionsRead;
     board.newLine();
-    cout <<  endl << endl << endl;
+    cout << endl << endl << endl;
     board.printBoard();
     int startY, startX, endY, endX;
-    while(board.finished == false){
+    while (board.finished == false) {
         cout << endl;
-        if(board.whoseTurn() == 0) {
+        if (board.whoseTurn() == 0) {
             cout << "Player one: ";
         } else {
             cout << "Player two: ";
@@ -445,18 +593,19 @@ int main()
         cin >> endY;
         cin >> endX;
         board.newLine();
-        if(board.validator(startY, startX, endY, endX)) { //checks if the move is valid for player 1
+        if (board.validator(startY, startX, endY, endX)) { //checks if the move is valid for player 1
             board.nextTurn();
             board.printBoard(); //inserted print board here based on Josh's feedback
-            board.specialStarCheck (endY, endX);
-            board.specialHashtagCheck (endY, endX, inputFile, inputFileAnswer);
+            board.specialStarCheck(endY, endX);
+            board.specialHashtagCheck(endY, endX, inputFile, inputFileAnswer);
             board.secretBunny(endY, endX);
+            board.secretAdviceGenerator(endY, endX);
         }
-        else {
-            board.printBoard();
-            cout << "Invalid move! Try again. " << endl;
+            else {
+                board.printBoard();
+                cout << "Invalid move! Try again. " << endl;
+            }
         }
-    }
 //FXNS: extra input throw out
 //win if v's get across the board three times
 //timer
@@ -464,5 +613,10 @@ int main()
 //lose screen
 //colors of pieces
 //secret special squares
-}
+//all comments for all fxns
+//check the input output scenario
+
+//questions for josh: the logic of not printing out the board when someone wins the game
+    }
+
 
