@@ -6,13 +6,11 @@
 #include <cstdlib>
 
 using namespace std;
-
 class board
 {
 public:
-
     bool finished = false;
-
+    //PRE-CONDITION: NO PLAYER BOARD EXISTS OR IS OLD
     void initializeBoard()
     {
         board[0][0] = 'O', //PLAYER ONE IS UPPERCASE
@@ -52,7 +50,8 @@ public:
         board[5][4] = 'o',
         board[5][5] = 'o';
     }
-
+    //POST CONDITION: DETERMINES THE VALUES OF THE PIECES ON THE BOARD
+    //PRE CONDITION: SHOWS THE UNCHANGEABLE SPECIAL CHARACTERS
     void initializeEmptyBoard()
     {
         emptyBoard[0][0] = ' ',
@@ -92,16 +91,122 @@ public:
         emptyBoard[4][5] = '*',
         emptyBoard[5][5] = ' ';
     }
-
+    //POST CONDITION: ESTABLISHES THE SPECIAL SQUARES TO BE DISPLAYED
+    //PRE CONDITION: IF A PLAYER LANDS ON THE 3, 5 SQUARE THEY ARE TAKEN TO THIS SECRET MINI GAME
+    void secretLotrSquare (int endY, int endX) {
+        if (endY == 3 && endX == 5) {
+            int playerGuess;
+            cout << "Welcome to this programmer's favorite square of them all!!!!!!!!!!! If you guess the magic 8 ball number correctly you will have the" << endl;
+            cout << "opportunity to either win an extra turn or learn some trivia from The Lord of the Rings!" << endl;
+            cout << "correctly guess the number that the magic 8 ball will generate (Guess a number between 1 and 15.) You will have one guess. go ahead:" << endl;
+            int lotrNumber = rand() % 15 + 0;
+            cin >> playerGuess;
+            if (lotrNumber == playerGuess) {
+                switch (playerGuess) {
+                    case 1:
+                        cout << "Great job! You guess correctly! You won't get another turn but you will get a piece of trivia."<< endl;
+                        cout <<  "J.R.R. Tolkien, the author of Lord of the Rings didnt invent the Elvish languages to fit into the Lord of the Rings" << endl;
+                        cout << "timeline, but wrote Lord of the Rings as a background history for the 15 different languages he created." << endl;
+                        break;
+                    case 2:
+                        cout << "An Elvish language (Sindarin) J.R.R. Tolkien used for The Lord of the Rings was entirely independent from " << endl;
+                        cout << "any other language, and as of 2008 contained some 25000 words." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 3:
+                        cout << "Great job! You guess correctly! You won't get another turn but you will get a piece of trivia."<< endl;
+                        cout << "In the original 1937 edition of The Hobbit, Gollum willingly bet his ring in a game of riddles with" << endl;
+                        cout << "Bilbo and the two parted on good terms when the ring went missing. Tolkien changed the story in his second"  << endl;
+                        cout << "edition to reflect the corruptive powers of the ring taking shape in, The Lord of the Rings Trilogy." <<endl;
+                        break;
+                    case 4:
+                        cout << "While filming Lord of the Rings in the mountainous New Zealand, Sean Bean refused a helicopter ride" << endl;
+                        cout << "to a set that was high in the mountains due to his fear of flying. He instead hiked up to the set" << endl;
+                        cout << "in his full Boromir armor every day that they shot up there." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 5:
+                        cout << "Great job! You guess correctly! You won't get another turn but you will get a piece of trivia."<< endl;
+                        cout << "n 1999, a Russian author, Kirill Eskov published a novel that retold The Lord of The Rings " << endl;
+                        cout << "from Saurons Perpective. In his version, he depicted Mordor as a peaceful country and Gandalf and Aragorn as evil." << endl;
+                        break;
+                    case 6:
+                        cout << "Christopher Lee (Saruman) was the only person involved with the Lord of the Rings films to have actually met Tolkien." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 7:
+                        cout << "Great job! You guess correctly! You won't get another turn but you will get a piece of trivia."<< endl;
+                        cout << " The Beatles once approached Stanley Kubrick with the idea of shooting Lord of the Rings" << endl;
+                        cout << "movie that starred them. Kubrick told John Lennon, he felt the story was unfilmable." << endl;
+                        break;
+                    case 8:
+                        cout << "Instead of The Lord of the Rings, Tolkien intended to write A New Hobbit about Bilbo who had" << endl;
+                        cout << "spent all his riches from The Hobbit and wanted to go on another adventure. Tolkien remembered " << endl;
+                        cout << "the powers of the ring from his first book and decided to write about that instead." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 9:
+                        cout << "Great job! You guess correctly! You won't get another turn but you will get a piece of trivia."<< endl;
+                        cout << " Viggo Mortensen (Aragorn) bonded with the two horses that he rode in Lord of the Rings," << endl;
+                        cout << "so he purchased them from their owner." << endl;
+                        break;
+                    case 10:
+                        cout << "The Lord of the Rings: The Return of the King is the first and only fantasy film ever to win" << endl;
+                        cout << "an Academy Award for Best Picture." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 11:
+                        cout << "Tolkien has often mentioned that War of the Rings takes place in the real world and that we are" << endl;
+                        cout << "now currently in the Seventh Age." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 12:
+                        cout << "While filming The Lord of the Rings trilogy, Viggo Mortensen got so into character that during" << endl;
+                        cout << "a conversation, Peter Jackson referred to him as Aragorn for over half an hour without him even realizing it." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 13:
+                        cout << "In The Lord of the Rings: The Return of the King (2003), they made a special effort to make sure " << endl;
+                        cout << "that Saurons tower being destroyed did not resemble the World Trade Center attack." << endl;
+                        break;
+                    case 14:
+                        cout << " Around 10,000 prosthetic facial appliances, over 3,500 pairs of Hobbit feet," << endl;
+                        cout << "2 500 foam body suits, 1,200 suits of armour, 2,000 weapons and 10,000 arrows were" << endl;
+                        cout << "made for the Lord of The Rings trilogy." << endl;
+                        cout << endl << "Nice work, you get an extra turn.";
+                        turn = turn - 1;
+                        break;
+                    case 15:
+                        cout << "Great job! You guess correctly! You won't get another turn but you will get a piece of trivia."<< endl;
+                        cout << "The gravestone of J.R.R. Tolkien and his wife is inscribed with Lthien and Beren." << endl;
+                        cout << "They were two tragic legendary characters in The Lord of the Rings, who were madly in love." << endl;
+                        break;
+                }
+            }
+            //all trivia quoted directly from this site: https://www.tickld.com/wow/1944969/jaw30-awesome-lord-of-the-rings-facts/
+            else {
+                cout << "Sorry, you guessed incorrectly! Good try! " << endl << endl;
+            }
+        }
+    }
+    //POST CONDITION: EITHER GIVES THE USER PLAYING THE SECRET MINI GAME AN EXTRA TURN OR NOT
+    //PRE CONDITION: IF A PLAYER LANDS ON THE 3, 1 SQUARE THEY ARE TAKEN TO THIS SECRET MINI GAME
     void secretAdviceGenerator (int endY, int endX) {
         if (endY == 3 && endX == 1) {
-            int userGuess;
+            int playerGuess;
             cout << "Welcome to the princess's secret square, here she will give you some advice or extra turns if you can " << endl;
             cout << "correctly guess the number of mice living under her cottage (There's somewhere between 1 and 15.) You will have one guess. go ahead:" << endl;
             int princessNumber = rand() % 15 + 0;
-            cin >> userGuess;
-            if (princessNumber == userGuess) {
-                switch (userGuess) {
+            cin >> playerGuess;
+            if (princessNumber == playerGuess) {
+                switch (playerGuess) {
                     case 1:
                         cout << "Great job! You guess correctly! You won't get another turn but you will get a piece of trivia."<< endl;
                         cout << "The French version of Rapunzel doesn't have a happy ending. Instead of finding a happily ever after," << endl;
@@ -195,10 +300,9 @@ public:
                 cout << "Sorry, you guessed incorrectly! Good try! " << endl << endl;
             }
         }
-
     }
-
-
+    //POST CONDITION: EITHER GIVES THE USER PLAYING THE SECRET MINI GAME AN EXTRA TURN OR NOT
+    //PRE CONDITION: IF A PLAYER LANDS ON THE 2, 3 SQUARE THEY ARE TAKEN TO THIS SECRET MINI GAME -- this is a twist on the GPA calculator from lab
     bool secretBunny(int endY, int endX) {
         char choice;
         int bigCounter = 0;
@@ -278,7 +382,8 @@ public:
         }
         while (choice == 'y' && bigCounter < 3 || choice == 'Y' && bigCounter < 3);
     }
-    //PRECONDITION: USER ENTERS EXCESS INPUT
+    //POST CONDITION: EITHER GIVES THE USER PLAYING THE SECRET MINI GAME AN EXTRA TURN OR NOT
+    //PRECONDITION: USER ENTERS AN EXCESS INPUT IN TERMINAL
     void newLine()
     {
         char c;
@@ -289,7 +394,7 @@ public:
         while (c != '\n');
     }
     //POST CONDITION: EXCESS INPUT IS DISCARDED FROM THE STREAM
-
+    //PRE CONDITION: MOVES HAVE BEEN RECORDED
     void printBoard()
     {
         cout << "   0   1   2   3   4   5  " << endl;
@@ -307,20 +412,23 @@ public:
 
         }
     }
-
+    //POST CONDITION: MOST UPDATED GAME STATE IS PRINTED WITH NEW BOARD POSITIONS
+    //PRE CONDITION:TAKES THE USERS INPUTS TO INFORM GAME STATE WHEN PIECES MOVE
     void mySwap ( int startY, int startX, int endY, int endX)
     {
         char temp = board[startY][startX];
         board[startY][startX] = board[endY][endX];
         board[endY][endX] = temp;
     }
-
+    //POST CONDITION: CREATES NEW GAME STATE BY SWAPPING VALUES
+    //PRE CONDITION: TAKES THE USERS INPUT TO INFORM THE GAME STATE WHEN ONE PLAYER EATS ANOTHER'S
     void pieceEat ( int startY, int startX, int endY, int endX)
     {
         board[endY][endX] = board[startY][startX]; //assigns second square to first square's piece value
         board[startY][startX] = ' '; //erases first square
     }
-
+    //POST CONDITION: MOST UPDATED GAME STATE IS PRINTED WITH ONE LESS PIECE
+    //PRE CONDITION: TAKES USERS INPUT TO MAKE SURE THE USER ISN'T ON A SPECIAL SQUARE
     bool specialHashtagCheck (int endY, int endX, ifstream& inputFile, ifstream& inputFileAnswer) {
         if ((emptyBoard[endY][endX]) == '#') {
             string theQuestion;
@@ -329,7 +437,6 @@ public:
             int playerAnswer;
             char mathAnswer;
             char startGame;
-
             cout<< "you have landed on a special square." << endl;
             cout << "If you answer this simple problem in less than 5 seconds you will get an additional turn." << endl;
             cout << "Would you like to try? Answer y or n. " << endl;
@@ -376,9 +483,9 @@ public:
         }
         return false;
     }
-
-    bool specialStarCheck (int endY, int endX)
-    {
+    //POST CONDITION: GIVES THE USER A CHANCE TO WIN AN EXTRA TURN IF THEY ANSWER THE QUESTIONS CORRECTLY
+    //PRE CONDITION: TAKES USERS INPUT TO MAKE SURE THE USER ISN'T ON A SPECIAL SQUARE
+    bool specialStarCheck (int endY, int endX) {
         if ((emptyBoard[endY][endX]) == '*') {
             char diceAnswer;
             int diceRoll;
@@ -388,10 +495,11 @@ public:
             cin >> diceAnswer;
             newLine();
             if (diceAnswer == 'y') {
-                cout << "The dice is being rolled. If the roll is an even number, you will get an extra concurrent turn."<< endl << endl;
+                cout
+                        << "The dice is being rolled. If the roll is an even number, you will get an extra concurrent turn."
+                        << endl << endl;
                 diceRoll = rand() % 6 + 1;
                 cout << "Your dice roll was " << diceRoll << ". " << endl;
-
                 if (diceRoll % 2 == 1) {
                     cout << "Your dice roll was odd so you don't get another turn. Try again next time." << endl;
                     return false;
@@ -404,34 +512,30 @@ public:
             }
             if (diceAnswer == 'n') {
                 return false;
+            } else {
+                return false;
             }
         }
-        else {
-            return false;
-        }
     }
-
-    //PRE CONDITION: takes the square values of where to and what user wants to move checks if the piece moves are legal
+    //POST CONDITION: GIVES THE USER A CHANCE TO WIN AN EXTRA TURN IF THEY ANSWER THE DICE IS ROLLED ON AN EVEN NUMBER
+    //PRE CONDITION: TAKES THE USER'S INPUT TO CHECK IF THE MOVES ARE LEGAL ACCORDING TO THE RULES OF THE GAME
     bool validator (int startY,  int startX, int endY, int endX) //should this be bool or void?
     {
-        // if it's player 1's turn and they DIDN'T choose one of their pieces (VRO), exit
+        // if it's player 1's turn and they DIDN'T choose one of their pieces (VRO), exits
         if( whoseTurn() == 0 && !( board[startY][startX] == 'V' || board[startY][startX] == 'R' || board[startY][startX] == 'O') ) {
             return false;
         }else if ( whoseTurn() == 1 && !(board[startY][startX] == 'v' || board[startY][startX] == 'r' || board[startY][startX] == 'o')) {
-            // if it's player 2's turn and they DIDN'T choose one of their pieces (vro), exit
+            // if it's player 2's turn and they DIDN'T choose one of their pieces (vro), exits
             return false;
         }
-
         if (( board[startY][startX] == 'V') && ( board[endY][endX] == 'v' )) {
             pieceEat(startY, startX, endY, endX);
             return true;
         }
-
         if (( board[startY][startX] == 'O' || board[startY][startX] == 'R') && ( board[endY][endX] == 'v' || board[endY][endX] == 'o')) {
             pieceEat(startY, startX, endY, endX);
             return true;
         }
-
         if (( board[startY][startX] == 'O' || board[startY][startX] == 'R') && (board[endY][endX] == 'r')) {
             pieceEat(startY, startX, endY, endX);
             cout << "Player one has won the game!";
@@ -440,17 +544,14 @@ public:
             return false;
 
         }
-
         if (( board[startY][startX] == 'v') && ( board[endY][endX] == 'V' )) {
             pieceEat(startY, startX, endY, endX);
             return true;
         }
-
         if (( board[startY][startX] == 'o' || board[startY][startX] == 'r') && ( board[endY][endX] == 'V' || board[endY][endX] == 'O')) {
             pieceEat(startY, startX, endY, endX);
             return true;
         }
-
         if (( board[startY][startX] == 'o' || board[startY][startX] == 'r') && (board[endY][endX] == 'R')) {
             pieceEat(startY, startX, endY, endX);
             cout << "Player two has won the game!";
@@ -458,7 +559,6 @@ public:
             return (0);
             return false;
         }
-
         if (board[endY][endX] == ' ') { //checks empty space
             if (toupper( board[startY][startX] ) == 'V') {
                 if (startY == endY) { //checks that the move is in the same row
@@ -480,25 +580,27 @@ public:
         cout << "that move is not valid. " << endl;
         return false;
     }
-
+    //POST CONDITION: IF THE MOVE IS LEGAL, THEN THE GAME STATE IS ALLOWED TO BE UPDATED
+    //PRE CONDITION: NO INPUT BUT IS CALLED WHEN SOMEONE COMPLETES A TURN
     void nextTurn (){
         turn++; //keeping track turn based on even or odd
-        if (turn > 25) {
+        if (turn > 100) {
             finished = true;
         }
     }
-
+    //POST CONDITION: INCREMENTS THE TURN
+    //PRE CONDITION: NO INPUT
     int whoseTurn(){
         return turn % 2; //returns 1 or 0 based on whose turn it is
     }
-
+    //POST CONDITION: KEEPS TRACK OF WHOSE TURN IT IS BASED ON THE MOD OPERATOR
 private:
     char board[6][6];
     char emptyBoard[6][6];
     int turn = 0;
     int questionIndex = 0;
 };
-
+//PRE CONDITION: BEGINNING OF GAME
 int main() {
     ifstream inputFile("/Users/giselle/CLionProjects/finalproject/specialsquare.txt"); //pwd in terminal for path
     ifstream inputFileAnswer("/Users/giselle/CLionProjects/finalproject/problemanswers.txt"); //pwd in terminal for path
@@ -507,69 +609,31 @@ int main() {
     board.initializeBoard();
     board.initializeEmptyBoard();
     srand(time(NULL)); //seeding the random number generator
-
     cout << "Hello! Welcome to BEEP BOOP!" << endl << endl;
     cout << "______**" << endl;
-    cout
-            << "____*                  ________     ______   _______       _____             _______           _____             ___          ______        "
-            << endl;
-    cout
-            << "__*___****            |         \\  |         |           |       \\          |        \\       /       \\        /       \\      |      \\"
-            << endl;
-    cout
-            << "_*__*______*          |          | |         |           |       |          |          |    /         \\     /          \\     |       |"
-            << endl;
-    cout
-            << "*__*___*_*__*         |         /  |         |           |_____ /           |         /    |     |     |   |     |     |     |      /"
-            << endl;
-    cout
-            << "*___*__*__*__*        |-------\\    |____     |_____      |                  |-------\\      |     |     |   |     |     |     |-----"
-            << endl;
-    cout
-            << "_*___*___*___*        |         \\  |         |           |                  |         \\    |     |     |   |     |     |     |"
-            << endl;
-    cout
-            << "__*____*____*         |          | |         |           |                  |           |  |     |     |   |     |     |     |"
-            << endl;
-    cout
-            << "___*_______*          |         /  |         |           |                  |          /    \\          /    \\         /      |"
-            << endl;
-    cout
-            << "_____*____*           |_______/    |______   |______     |                  |________/       \\________/       \\______/       |"
-            << endl;
+    cout<< "____*                  ________     ______   _______       _____             _______           _____             ___          ______        "<< endl;
+    cout<< "__*___****            |         \\  |         |           |       \\          |        \\       /       \\        /       \\      |      \\"<< endl;
+    cout<< "_*__*______*          |          | |         |           |       |          |          |    /         \\     /          \\     |       |"<< endl;
+    cout<< "*__*___*_*__*         |         /  |         |           |_____ /           |         /    |     |     |   |     |     |     |      /"<< endl;
+    cout<< "*___*__*__*__*        |-------\\    |____     |_____      |                  |-------\\      |     |     |   |     |     |     |-----"<< endl;
+    cout<< "_*___*___*___*        |         \\  |         |           |                  |         \\    |     |     |   |     |     |     |"<< endl;
+    cout<< "__*____*____*         |          | |         |           |                  |           |  |     |     |   |     |     |     |"<< endl;
+    cout<< "___*_______*          |         /  |         |           |                  |          /    \\          /    \\         /      |"<< endl;
+    cout<< "_____*____*           |_______/    |______   |______     |                  |________/       \\________/       \\______/       |"<< endl;
     cout << "_______**" << endl;
     cout << endl << endl;
     cout
             << "               *~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~*~"
             << endl << endl << endl;
-
-    cout
-            << "Welcome to the game BEEP BOOP! this is a game that's set up on a checkboard-type board. The game consists of two players."
-            << endl;
-    cout
-            << "The x values are labeled across the top of the board and the y values of the board are labeled to the left going down the side."
-            << endl;
-    cout
-            << "Together, the y and x values create a unique label for each square. You will type in your values ' y space x enter' into the keyboard."
-            << endl;
-    cout
-            << "The game will alternate between the two players unless someone lands on a special character, a * or a # which are labeled the board squares."
-            << endl;
-    cout
-            << "These squares give you a chance to win another turn. Player one is the capital figures: V, R, and O. Player two is the lower case figures: v, r, and o. "
-            << endl;
-    cout
-            << "The V's can only move left to right, either way, one square at a time. They can eat only other V characters, not the R's or the O's. "
-            << endl;
-    cout
-            << "The R's and O's only move vertically but they can eat any piece. The only difference is that the R's are the kings on the board. "
-            << endl;
-    cout
-            << "If you eat an opponent's R piece, then you automatically win the game and it's over! The only other way to win the game "
-            << endl;
-    cout
-            << "is to take a V piece across the board and back without getting eaten. There are also special surprise squares that"
-            << endl;
+    cout<< "Welcome to the game BEEP BOOP! this is a game that's set up on a checkboard-type board. The game consists of two players."<< endl;
+    cout<< "The x values are labeled across the top of the board and the y values of the board are labeled to the left going down the side."<< endl;
+    cout<< "Together, the y and x values create a unique label for each square. You will type in your values ' y space x enter' into the keyboard."<< endl;
+    cout<< "The game will alternate between the two players unless someone lands on a special character, a * or a # which are labeled the board squares."<< endl;
+    cout<< "These squares give you a chance to win another turn. Player one is the capital figures: V, R, and O. Player two is the lower case figures: v, r, and o. "<< endl;
+    cout<< "The V's can only move left to right, either way, one square at a time. They can eat only other V characters, not the R's or the O's. "<< endl;
+    cout<< "The R's and O's only move vertically but they can eat any piece. The only difference is that the R's are the kings on the board. "<< endl;
+    cout<< "If you eat an opponent's R piece, then you automatically win the game and it's over! The only other way to win the game "<< endl;
+    cout<< "is to take a V piece across the board and back without getting eaten. There are also special surprise squares that"<< endl;
     cout << "are unlabeled and will take you to a mini challenge! Good luck! " << endl;
     cout << endl << endl << endl << endl;
     cout << "Press s to continue!";
@@ -600,23 +664,14 @@ int main() {
             board.specialHashtagCheck(endY, endX, inputFile, inputFileAnswer);
             board.secretBunny(endY, endX);
             board.secretAdviceGenerator(endY, endX);
-        }
+            board.secretLotrSquare (endY, endX);
+            }
             else {
                 board.printBoard();
                 cout << "Invalid move! Try again. " << endl;
             }
         }
-//FXNS: extra input throw out
-//win if v's get across the board three times
-//timer
-//win screen
-//lose screen
-//colors of pieces
-//secret special squares
-//all comments for all fxns
-//check the input output scenario
-
-//questions for josh: the logic of not printing out the board when someone wins the game
+    //POST CONDITION: GAME IS COMPLETE!
     }
 
 
